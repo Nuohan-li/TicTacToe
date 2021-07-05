@@ -18,7 +18,7 @@ void game_board(char tiles[9]) {
     cout << "             " << tiles[6] << "  |  " << tiles[7] << "  |  " << tiles[8] << endl;
 }
 
-// 1 = win, 0 = game in progress, -1 = draw
+// 1 = over, -1 = game in progress, 0 = draw
 int win_condition(char tiles[9]) {
     if (tiles[0] == tiles[1] && tiles[1] == tiles[2])
         return 1;
@@ -36,9 +36,9 @@ int win_condition(char tiles[9]) {
         return 1;
     else if (tiles[2] == tiles[4] && tiles[4] == tiles[6])
         return 1;
-    else if (tiles[0] != 1 && tiles[1] != 2 && tiles[2] != 3 &&
-        tiles[3] != 4 && tiles[4] != 5 && tiles[5] != 6 &&
-        tiles[6] != 7 && tiles[7] != 8 && tiles[8] != 9)
+    else if (tiles[0] != '1' && tiles[1] != '2' && tiles[2] != '3' &&
+        tiles[3] != '4' && tiles[4] != '5' && tiles[5] != '6' &&
+        tiles[6] != '7' && tiles[7] != '8' && tiles[8] != '9')
         return 0;
     else
         return -1;
@@ -95,7 +95,14 @@ void game() {
 
         }
 
-    } while (win_condition(tiles) == 0);
+    } while (win_condition(tiles) == -1);
+
+    if (win_condition(tiles) == 0)
+        cout << "draw";
+    else if (win_condition(tiles) == 1 && player_turn % 2 == 1)
+        cout << "player 2 win";
+    else
+        cout << "player 1 win";
 }
 
 int main(){
